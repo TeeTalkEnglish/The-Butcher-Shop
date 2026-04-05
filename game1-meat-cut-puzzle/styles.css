@@ -1,0 +1,775 @@
+/* =============================================
+   GAME 1: Label the Cuts – Styles
+   =============================================
+   Drag & drop meat cut labeling game
+   Color scheme: Deep reds & warm butcher tones
+   ============================================= */
+
+/* ---- Reset ---- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #1a0a0a;
+  color: #e4e4e4;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+/* =============================================
+   HEADER
+   ============================================= */
+
+.header {
+  width: 100%;
+  background: linear-gradient(135deg, #8b1a1a, #c0392b);
+  padding: 14px 20px 18px;
+  text-align: center;
+}
+
+.back-link {
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: white;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header-emoji {
+  font-size: 1.8rem;
+  margin-bottom: 4px;
+}
+
+.header h1 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+/* =============================================
+   GAME CONTAINER
+   ============================================= */
+
+.game-container {
+  width: 100%;
+  max-width: 960px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* =============================================
+   ANIMAL SELECTOR
+   ============================================= */
+
+.animal-selector {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.selector-label {
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.selector-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.animal-btn {
+  padding: 8px 18px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: inherit;
+  border: 2px solid #3a1a1a;
+  background: #2a1010;
+  color: #ccc;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.animal-btn:hover {
+  background: #3a1515;
+  border-color: #c0392b;
+  color: white;
+}
+
+.animal-btn.active {
+  background: #c0392b;
+  border-color: #c0392b;
+  color: white;
+  box-shadow: 0 0 12px rgba(192, 57, 43, 0.4);
+}
+
+/* =============================================
+   STATS BAR
+   ============================================= */
+
+.stats-bar {
+  display: flex;
+  gap: 20px;
+  background: #2a1010;
+  padding: 12px 24px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  width: 100%;
+  max-width: 560px;
+  justify-content: center;
+  border: 1px solid #3a1a1a;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.65rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 2px;
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #e8913a;
+}
+
+/* =============================================
+   MAIN GAME AREA (Labels + Diagram)
+   ============================================= */
+
+.game-area {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  margin-bottom: 16px;
+  align-items: flex-start;
+}
+
+/* =============================================
+   LEFT: DRAGGABLE LABELS PANEL
+   ============================================= */
+
+.labels-panel {
+  width: 200px;
+  flex-shrink: 0;
+  background: #2a1010;
+  border-radius: 12px;
+  padding: 14px;
+  border: 1px solid #3a1a1a;
+}
+
+.panel-title {
+  font-size: 0.85rem;
+  color: #e8913a;
+  text-align: center;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.label-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 100px;
+}
+
+/* ---- Draggable Label ---- */
+.cut-label {
+  padding: 10px 14px;
+  background: #3a1a1a;
+  border: 2px solid #5a2a2a;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #e4e4e4;
+  cursor: grab;
+  transition: all 0.2s ease;
+  user-select: none;
+  text-align: center;
+  position: relative;
+}
+
+.cut-label:hover {
+  background: #4a2020;
+  border-color: #c0392b;
+  transform: translateX(4px);
+}
+
+.cut-label:active {
+  cursor: grabbing;
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  z-index: 100;
+}
+
+.cut-label.dragging {
+  opacity: 0.5;
+  border-style: dashed;
+}
+
+.cut-label.placed {
+  background: #1a3a1a;
+  border-color: #27ae60;
+  color: #27ae60;
+  cursor: default;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.cut-label .label-number {
+  display: inline-block;
+  background: #c0392b;
+  color: white;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-align: center;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.cut-label.placed .label-number {
+  background: #27ae60;
+}
+
+/* =============================================
+   RIGHT: ANIMAL DIAGRAM PANEL
+   ============================================= */
+
+.diagram-panel {
+  flex: 1;
+  min-width: 0;
+}
+
+.animal-diagram {
+  position: relative;
+  background: #fdf6ee;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid #3a1a1a;
+}
+
+#animalCanvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---- Drop Zone Container (overlays the canvas) ---- */
+.drop-zone-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* ---- Individual Drop Zone ---- */
+.drop-zone {
+  position: absolute;
+  border: 2px dashed rgba(139, 69, 19, 0.5);
+  border-radius: 8px;
+  background: rgba(232, 145, 58, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: rgba(139, 69, 19, 0.6);
+  font-weight: 600;
+  pointer-events: all;
+  transition: all 0.2s ease;
+  cursor: default;
+}
+
+.drop-zone .zone-number {
+  display: inline-block;
+  background: rgba(139, 69, 19, 0.3);
+  color: rgba(139, 69, 19, 0.8);
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.drop-zone .zone-label-text {
+  display: none;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+/* Hover state when dragging over */
+.drop-zone.drag-over {
+  border-color: #e8913a;
+  background: rgba(232, 145, 58, 0.2);
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(232, 145, 58, 0.3);
+}
+
+/* Correct placement */
+.drop-zone.correct {
+  border-color: #27ae60;
+  background: rgba(39, 174, 96, 0.25);
+  animation: correctPulse 0.5s ease;
+}
+
+.drop-zone.correct .zone-number {
+  display: none;
+}
+
+.drop-zone.correct .zone-label-text {
+  display: block;
+  color: #155d30;
+}
+
+/* Wrong placement */
+.drop-zone.wrong {
+  border-color: #e74c3c;
+  background: rgba(231, 76, 60, 0.2);
+  animation: wrongShake 0.4s ease;
+}
+
+/* =============================================
+   CONTROLS
+   ============================================= */
+
+.controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.btn {
+  padding: 11px 22px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: #c0392b;
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #a33025;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: #2a1010;
+  color: #ccc;
+  border: 1px solid #3a1a1a;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: #3a1515;
+  color: white;
+  border-color: #c0392b;
+}
+
+/* =============================================
+   HINT TOOLTIP
+   ============================================= */
+
+.hint-tooltip {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #e8913a;
+  color: #1a0a0a;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  z-index: 50;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease;
+}
+
+.hint-tooltip.hidden {
+  display: none;
+}
+
+/* =============================================
+   MODALS
+   ============================================= */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  animation: fadeIn 0.3s ease;
+  padding: 20px;
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+.modal {
+  background: #2a1010;
+  border: 2px solid #3a1a1a;
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: popIn 0.3s ease;
+}
+
+.modal-emoji {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.modal h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #e8913a;
+}
+
+/* ---- Win Message ---- */
+.win-message {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+/* ---- Score Breakdown ---- */
+.score-breakdown {
+  background: #1a0808;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.score-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 0.85rem;
+  color: #ccc;
+  border-bottom: 1px solid #2a1515;
+}
+
+.score-row:last-child {
+  border-bottom: none;
+}
+
+.score-row.total {
+  font-weight: 700;
+  color: #e8913a;
+  font-size: 1rem;
+  padding-top: 10px;
+  border-top: 2px solid #3a1a1a;
+}
+
+.score-val {
+  font-weight: 700;
+}
+
+/* ---- Learned Section ---- */
+.learned-section {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.learned-section h3 {
+  font-size: 0.9rem;
+  color: #e8913a;
+  margin-bottom: 10px;
+}
+
+.learned-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.learned-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: #1a0808;
+  border-radius: 6px;
+  font-size: 0.8rem;
+}
+
+.learned-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.learned-name {
+  color: #ddd;
+  font-weight: 500;
+}
+
+/* ---- Modal Buttons ---- */
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ---- Intro Modal Specifics ---- */
+.intro-text {
+  font-size: 0.9rem;
+  color: #ccc;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.intro-steps {
+  text-align: left;
+  margin-bottom: 16px;
+}
+
+.intro-step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  font-size: 0.9rem;
+  color: #ddd;
+  border-bottom: 1px solid #3a1a1a;
+}
+
+.intro-step:last-child {
+  border-bottom: none;
+}
+
+.step-num {
+  display: inline-block;
+  background: #c0392b;
+  color: white;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.intro-tip {
+  font-size: 0.85rem;
+  color: #e8913a;
+  margin-bottom: 20px;
+}
+
+/* =============================================
+   ANIMATIONS
+   ============================================= */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes correctPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); box-shadow: 0 0 20px rgba(39, 174, 96, 0.5); }
+  100% { transform: scale(1); }
+}
+
+@keyframes wrongShake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes slideUp {
+  from { transform: translateX(-50%) translateY(20px); opacity: 0; }
+  to { transform: translateX(-50%) translateY(0); opacity: 1; }
+}
+
+@keyframes labelAppear {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.cut-label {
+  animation: labelAppear 0.3s ease forwards;
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+
+@media (max-width: 700px) {
+  .game-area {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .labels-panel {
+    width: 100%;
+    order: 2;
+  }
+
+  .label-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .cut-label {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+
+  .diagram-panel {
+    width: 100%;
+    order: 1;
+  }
+
+  .stats-bar {
+    gap: 14px;
+    padding: 10px 16px;
+  }
+
+  .stat-value {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 1.2rem;
+  }
+
+  .animal-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  .btn {
+    padding: 9px 16px;
+    font-size: 0.8rem;
+  }
+
+  .modal {
+    padding: 20px;
+  }
+
+  .learned-list {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-bar {
+    gap: 10px;
+    padding: 8px 12px;
+  }
+
+  .stat-label {
+    font-size: 0.6rem;
+  }
+
+  .stat-value {
+    font-size: 0.9rem;
+  }
+  /* ---- Label dot (replaces number) ---- */
+.label-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.cut-label.placed .label-dot {
+  background: #27ae60 !important;
+}
+
+/* ---- Zone question mark ---- */
+.zone-question {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: rgba(139, 69, 19, 0.4);
+}
+
+.drop-zone.correct .zone-question {
+  display: none;
+}
+}

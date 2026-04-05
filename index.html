@@ -3,782 +3,105 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Time Quest: The Butcher Shop</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #1a0a00;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* ── START SCREEN ── */
-    #start-screen {
-      text-align: center;
-      color: white;
-      padding: 40px;
-      max-width: 600px;
-    }
-
-    .butcher-icon {
-      font-size: 80px;
-      margin-bottom: 20px;
-      animation: bounce 1.5s infinite;
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(-10px); }
-    }
-
-    #start-screen h1 {
-      font-size: 36px;
-      color: #ff6b35;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-      margin-bottom: 10px;
-    }
-
-    #start-screen h2 {
-      font-size: 18px;
-      color: #ffd166;
-      margin-bottom: 20px;
-    }
-
-    .unit-badge {
-      background: #ff6b35;
-      color: white;
-      padding: 5px 15px;
-      border-radius: 20px;
-      font-size: 14px;
-      display: inline-block;
-      margin-bottom: 20px;
-    }
-
-    #start-screen p {
-      font-size: 16px;
-      color: #ccc;
-      margin-bottom: 30px;
-      line-height: 1.6;
-    }
-
-    .start-btn {
-      background: #ff6b35;
-      color: white;
-      border: none;
-      padding: 15px 40px;
-      font-size: 20px;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 4px 15px rgba(255,107,53,0.4);
-    }
-
-    .start-btn:hover {
-      background: #e85d2a;
-      transform: scale(1.05);
-    }
-
-    /* ── GAME SCREEN ── */
-    #game-screen {
-      display: none;
-      width: 100%;
-      max-width: 750px;
-      padding: 20px;
-    }
-
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .score-box {
-      background: #ff6b35;
-      color: white;
-      padding: 8px 18px;
-      border-radius: 20px;
-      font-size: 16px;
-      font-weight: bold;
-    }
-
-    .progress-box {
-      color: #ffd166;
-      font-size: 15px;
-    }
-
-    /* progress bar */
-    .progress-bar-bg {
-      width: 100%;
-      background: #3d1a00;
-      border-radius: 10px;
-      height: 10px;
-      margin-bottom: 20px;
-    }
-
-    .progress-bar-fill {
-      height: 10px;
-      background: linear-gradient(to right, #ff6b35, #ffd166);
-      border-radius: 10px;
-      transition: width 0.4s ease;
-    }
-
-    /* main card */
-    .card {
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-    }
-
-    .scene-label {
-      background: #fff3ed;
-      color: #ff6b35;
-      font-size: 13px;
-      font-weight: bold;
-      padding: 4px 12px;
-      border-radius: 10px;
-      display: inline-block;
-      margin-bottom: 15px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .scene-title {
-      font-size: 22px;
-      font-weight: bold;
-      color: #1a0a00;
-      margin-bottom: 20px;
-    }
-
-    /* character dialogue */
-    .dialogue-box {
-      display: flex;
-      align-items: flex-start;
-      gap: 15px;
-      background: #fff8f5;
-      border-left: 5px solid #ff6b35;
-      border-radius: 12px;
-      padding: 15px 20px;
-      margin-bottom: 20px;
-    }
-
-    .avatar {
-      font-size: 40px;
-      flex-shrink: 0;
-    }
-
-    .dialogue-content {
-      flex: 1;
-    }
-
-    .speaker-name {
-      font-weight: bold;
-      color: #ff6b35;
-      font-size: 14px;
-      margin-bottom: 5px;
-    }
-
-    .dialogue-text {
-      font-size: 17px;
-      color: #333;
-      line-height: 1.5;
-    }
-
-    /* question */
-    .question-text {
-      font-size: 19px;
-      font-weight: bold;
-      color: #1a0a00;
-      margin-bottom: 18px;
-    }
-
-    /* options */
-    .options-grid {
-      display: grid;
-      gap: 12px;
-    }
-
-    .option-btn {
-      background: #f0f4ff;
-      border: 2px solid #d0d8f0;
-      border-radius: 12px;
-      padding: 14px 18px;
-      font-size: 16px;
-      color: #333;
-      cursor: pointer;
-      text-align: left;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .option-btn:hover:not(:disabled) {
-      background: #fff3ed;
-      border-color: #ff6b35;
-      transform: translateX(4px);
-    }
-
-    .option-letter {
-      background: #d0d8f0;
-      color: #555;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 14px;
-      flex-shrink: 0;
-      transition: all 0.2s;
-    }
-
-    .option-btn.correct {
-      background: #e8faf0;
-      border-color: #22c55e;
-    }
-
-    .option-btn.correct .option-letter {
-      background: #22c55e;
-      color: white;
-    }
-
-    .option-btn.wrong {
-      background: #fef2f2;
-      border-color: #ef4444;
-    }
-
-    .option-btn.wrong .option-letter {
-      background: #ef4444;
-      color: white;
-    }
-
-    /* feedback */
-    .feedback-box {
-      margin-top: 18px;
-      padding: 14px 18px;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: bold;
-      display: none;
-    }
-
-    .feedback-box.correct {
-      background: #e8faf0;
-      color: #16a34a;
-      border: 2px solid #22c55e;
-    }
-
-    .feedback-box.wrong {
-      background: #fef2f2;
-      color: #dc2626;
-      border: 2px solid #ef4444;
-    }
-
-    /* next button */
-    .next-btn {
-      margin-top: 20px;
-      background: #ff6b35;
-      color: white;
-      border: none;
-      padding: 13px 35px;
-      font-size: 17px;
-      border-radius: 25px;
-      cursor: pointer;
-      display: none;
-      transition: all 0.3s;
-      box-shadow: 0 4px 12px rgba(255,107,53,0.3);
-    }
-
-    .next-btn:hover {
-      background: #e85d2a;
-      transform: scale(1.03);
-    }
-
-    /* ── FINAL SCREEN ── */
-    #final-screen {
-      display: none;
-      text-align: center;
-      color: white;
-      padding: 40px 20px;
-      max-width: 600px;
-    }
-
-    .trophy {
-      font-size: 80px;
-      margin-bottom: 20px;
-    }
-
-    #final-screen h1 {
-      font-size: 32px;
-      color: #ffd166;
-      margin-bottom: 10px;
-    }
-
-    .final-score-circle {
-      width: 130px;
-      height: 130px;
-      background: #ff6b35;
-      border-radius: 50%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin: 20px auto;
-      box-shadow: 0 4px 20px rgba(255,107,53,0.5);
-    }
-
-    .final-score-number {
-      font-size: 42px;
-      font-weight: bold;
-      color: white;
-      line-height: 1;
-    }
-
-    .final-score-label {
-      font-size: 13px;
-      color: #ffe0d0;
-    }
-
-    .result-message {
-      font-size: 20px;
-      color: #ffd166;
-      margin: 20px 0;
-      font-weight: bold;
-    }
-
-    .result-detail {
-      font-size: 16px;
-      color: #ccc;
-      margin-bottom: 30px;
-      line-height: 1.6;
-    }
-
-    .play-again-btn {
-      background: #ff6b35;
-      color: white;
-      border: none;
-      padding: 14px 40px;
-      font-size: 18px;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 4px 15px rgba(255,107,53,0.4);
-    }
-
-    .play-again-btn:hover {
-      background: #e85d2a;
-      transform: scale(1.05);
-    }
-
-    /* star rating */
-    .stars {
-      font-size: 40px;
-      margin: 10px 0;
-    }
-  </style>
+  <title>🥩 The Butcher Shop – TeeTalkEnglish</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- ══════════════════════════════════
-       START SCREEN
-  ══════════════════════════════════ -->
-  <div id="start-screen">
-    <div class="butcher-icon">🥩</div>
-    <div class="unit-badge">UNIT 10 — Telling Time</div>
-    <h1>Time Quest</h1>
-    <h2>A Day at the Butcher Shop</h2>
-    <p>
-      It's your first day working at <strong>Red Apron Butchers</strong>!
-      Your manager needs you to understand the shop schedule,
-      shift times, and break times. Answer all questions correctly
-      to become the <strong>best butcher on the floor!</strong>
-    </p>
-    <p style="color:#ffd166; margin-bottom:30px;">
-      🔪 10 Questions &nbsp;|&nbsp; ⭐ 100 Points &nbsp;|&nbsp; 🕐 Telling Time
-    </p>
-    <button class="start-btn" onclick="startGame()">
-      🔪 Start My Shift
-    </button>
+  <!-- ============ HEADER ============ -->
+  <div class="header">
+    <span class="header-emoji">🥩🔪🇦🇺</span>
+    <h1>The Butcher Shop</h1>
+    <p>Learn English for your meat butcher career in Australia</p>
+    <a href="https://teetalkenglish.github.io/" class="back-link">← Back to TeeTalkEnglish</a>
   </div>
 
-  <!-- ══════════════════════════════════
-       GAME SCREEN
-  ══════════════════════════════════ -->
-  <div id="game-screen">
-    <div class="top-bar">
-      <div class="score-box">⭐ Score: <span id="score-display">0</span></div>
-      <div class="progress-box">Question <span id="q-num">1</span> of 10</div>
-    </div>
-    <div class="progress-bar-bg">
-      <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
-    </div>
-    <div class="card">
-      <div class="scene-label" id="scene-label"></div>
-      <div class="scene-title" id="scene-title"></div>
-      <div class="dialogue-box">
-        <div class="avatar" id="avatar"></div>
-        <div class="dialogue-content">
-          <div class="speaker-name" id="speaker-name"></div>
-          <div class="dialogue-text" id="dialogue-text"></div>
-        </div>
+  <!-- ============ MAIN CONTENT ============ -->
+  <div class="container">
+
+    <!-- PUZZLE GAMES -->
+    <p class="section-title">🧩 Puzzle Games</p>
+    <div class="game-grid">
+
+      <!-- GAME 1 -->
+      <div class="game-card">
+        <span class="card-number">1</span>
+        <span class="card-badge new">NEW</span>
+        <span class="card-emoji">🥩</span>
+        <span class="card-type">Puzzle</span>
+        <h3>Meat Cuts Sliding Puzzle</h3>
+        <p>Slide tiles to reveal beef, pork, and lamb cut diagrams. Learn the English names for every cut.</p>
+        <a href="game1-meat-cut-puzzle/" class="btn-play">▶ Play Now</a>
       </div>
-      <div class="question-text" id="question-text"></div>
-      <div class="options-grid" id="options-container"></div>
-      <div class="feedback-box" id="feedback-box"></div>
-      <button class="next-btn" id="next-btn" onclick="nextQuestion()">
-        Next ➜
-      </button>
+
+      <!-- GAME 2 -->
+      <div class="game-card">
+        <span class="card-number">2</span>
+        <span class="card-badge new">NEW</span>
+        <span class="card-emoji">🔪</span>
+        <span class="card-type">Puzzle</span>
+        <h3>Butcher Tools Match</h3>
+        <p>Match butcher tools and safety gear to their correct English names. Know your equipment!</p>
+        <a href="game2-tools-match/" class="btn-play">▶ Play Now</a>
+      </div>
+
     </div>
+
+    <div class="divider"></div>
+
+    <!-- MEMORY GAMES -->
+    <p class="section-title">🧠 Memory & Quiz Games</p>
+    <div class="game-grid">
+
+      <!-- GAME 3 -->
+      <div class="game-card">
+        <span class="card-number">3</span>
+        <span class="card-badge new">NEW</span>
+        <span class="card-emoji">🧠</span>
+        <span class="card-type">Memory</span>
+        <h3>Vocab Memory Match</h3>
+        <p>Flip cards to match meat cuts, workplace terms, and safety vocabulary. Train your memory!</p>
+        <a href="game3-vocab-memory/" class="btn-play">▶ Play Now</a>
+      </div>
+
+      <!-- GAME 5 -->
+      <div class="game-card">
+        <span class="card-number">5</span>
+        <span class="card-badge new">NEW</span>
+        <span class="card-emoji">🇦🇺</span>
+        <span class="card-type">Quiz</span>
+        <h3>Aussie Life & Work Quiz</h3>
+        <p>Test your knowledge of Australian slang, worker rights, safety rules, and daily life essentials.</p>
+        <a href="game5-aussie-quiz/" class="btn-play">▶ Play Now</a>
+      </div>
+
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- CONVERSATION GAME -->
+    <p class="section-title">💬 Conversation Practice</p>
+    <div class="game-grid">
+
+      <!-- GAME 4 -->
+      <div class="game-card">
+        <span class="card-number">4</span>
+        <span class="card-badge live">LIVE</span>
+        <span class="card-emoji">🗣️</span>
+        <span class="card-type">Conversation</span>
+        <h3>MeatButcher: Shift Time</h3>
+        <p>Practice real workplace conversations — talk to your supervisor, ask about shifts, and handle daily tasks.</p>
+        <a href="game4-shifttime/" class="btn-play">▶ Play Now</a>
+      </div>
+
+    </div>
+
   </div>
 
-  <!-- ══════════════════════════════════
-       FINAL SCREEN
-  ══════════════════════════════════ -->
-  <div id="final-screen">
-    <div class="trophy" id="trophy-icon">🏆</div>
-    <h1>Shift Complete!</h1>
-    <div class="stars" id="stars-display"></div>
-    <div class="final-score-circle">
-      <div class="final-score-number" id="final-score-number">0</div>
-      <div class="final-score-label">out of 100</div>
-    </div>
-    <div class="result-message" id="result-message"></div>
-    <div class="result-detail" id="result-detail"></div>
-    <button class="play-again-btn" onclick="restartGame()">
-      🔄 Work Another Shift
-    </button>
+  <!-- ============ FOOTER ============ -->
+  <div class="footer">
+    TeeTalkEnglish © 2025 · The Butcher Shop Games
   </div>
 
-  <!-- ══════════════════════════════════
-       JAVASCRIPT
-  ══════════════════════════════════ -->
-  <script>
-    const gameData = [
-      {
-        sceneLabel: "🔪 Scene 1 — Arriving at Work",
-        title: "Your First Morning",
-        avatar: "👨‍🍳",
-        speaker: "Manager Dave",
-        dialogue: "Good morning! What time do you start your shift today?",
-        question: "Choose the BEST answer.",
-        options: [
-          "I start at six o'clock in the morning.",
-          "I start very early time.",
-          "I start at the butcher shop.",
-          "I am starting now please."
-        ],
-        correct: 0,
-        feedbackCorrect: "✅ Great answer! Always say the time clearly.",
-        feedbackWrong: "❌ Not quite. Say the time clearly: 'I start at six o'clock in the morning.'"
-      },
-      {
-        sceneLabel: "🔪 Scene 2 — End of Shift",
-        title: "Planning Your Day",
-        avatar: "👨‍🍳",
-        speaker: "Manager Dave",
-        dialogue: "You start at six o'clock. You finish at two thirty in the afternoon. How long is your shift?",
-        question: "How long is the shift?",
-        options: [
-          "Six hours",
-          "Eight hours and thirty minutes",
-          "Ten hours",
-          "Two hours"
-        ],
-        correct: 1,
-        feedbackCorrect: "✅ Correct! From 6:00 AM to 2:30 PM is eight and a half hours.",
-        feedbackWrong: "❌ Count again. From 6:00 AM to 2:30 PM is eight hours and thirty minutes."
-      },
-      {
-        sceneLabel: "☕ Scene 3 — Break Time",
-        title: "First Break",
-        avatar: "👩‍🍳",
-        speaker: "Coworker Lisa",
-        dialogue: "Hey! What time is our first break?",
-        question: "Choose the BEST answer.",
-        options: [
-          "Our break is very nice.",
-          "We have a break at nine thirty.",
-          "Break at work now.",
-          "I don't know the break."
-        ],
-        correct: 1,
-        feedbackCorrect: "✅ Perfect! 'We have a break at nine thirty' is very clear.",
-        feedbackWrong: "❌ Try again. Say: 'We have a break at nine thirty.'"
-      },
-      {
-        sceneLabel: "☕ Scene 4 — Break Length",
-        title: "How Long Is the Break?",
-        avatar: "👩‍🍳",
-        speaker: "Coworker Lisa",
-        dialogue: "How long is the break?",
-        question: "Choose the BEST answer.",
-        options: [
-          "The break is very short.",
-          "Break is fifteen minutes long.",
-          "It is fifteen minutes.",
-          "I finish break now."
-        ],
-        correct: 2,
-        feedbackCorrect: "✅ Correct! 'It is fifteen minutes' is the best answer.",
-        feedbackWrong: "❌ The best answer is: 'It is fifteen minutes.'"
-      },
-      {
-        sceneLabel: "🍖 Scene 5 — Lunch Break",
-        title: "Lunchtime Schedule",
-        avatar: "👨‍🍳",
-        speaker: "Manager Dave",
-        dialogue: "Lunch break starts at twelve o'clock. It is thirty minutes. What time do you go back to work?",
-        question: "What time does lunch finish?",
-        options: [
-          "Twelve thirty",
-          "One o'clock",
-          "Twelve fifteen",
-          "Two o'clock"
-        ],
-        correct: 0,
-        feedbackCorrect: "✅ That's right! 12:00 plus 30 minutes is twelve thirty.",
-        feedbackWrong: "❌ Think again. 12:00 plus 30 minutes is twelve thirty."
-      },
-      {
-        sceneLabel: "🕐 Scene 6 — Time Vocabulary",
-        title: "Reading the Clock",
-        avatar: "📋",
-        speaker: "Shop Sign",
-        dialogue: "The shop opens at half past seven in the morning.",
-        question: "What time does the shop open?",
-        options: [
-          "7:15",
-          "7:45",
-          "7:30",
-          "8:00"
-        ],
-        correct: 2,
-        feedbackCorrect: "✅ Correct! Half past seven means 7:30.",
-        feedbackWrong: "❌ Remember: half past seven = 7:30."
-      },
-      {
-        sceneLabel: "🕐 Scene 7 — Time Vocabulary",
-        title: "Closing Time",
-        avatar: "📋",
-        speaker: "Shop Sign",
-        dialogue: "The butcher shop closes at quarter to six in the evening.",
-        question: "What time does the shop close?",
-        options: [
-          "6:15",
-          "5:45",
-          "6:45",
-          "5:15"
-        ],
-        correct: 1,
-        feedbackCorrect: "✅ Correct! Quarter to six means 5:45.",
-        feedbackWrong: "❌ Remember: quarter to six = 5:45. (15 minutes before 6:00)"
-      },
-      {
-        sceneLabel: "⏰ Scene 8 — Being On Time",
-        title: "Don't Be Late!",
-        avatar: "👨‍🍳",
-        speaker: "Manager Dave",
-        dialogue: "Please do not be late tomorrow. The morning shift starts at six o'clock sharp.",
-        question: "What is the BEST reply?",
-        options: [
-          "Don't worry, I am always on time.",
-          "OK I come maybe.",
-          "Six is very early time.",
-          "I will try to come."
-        ],
-        correct: 0,
-        feedbackCorrect: "✅ Excellent! 'Don't worry, I am always on time' sounds very professional.",
-        feedbackWrong: "❌ The best reply is: 'Don't worry, I am always on time.'"
-      },
-      {
-        sceneLabel: "🔄 Scene 9 — Afternoon Shift",
-        title: "Shift Change",
-        avatar: "👩‍🍳",
-        speaker: "Coworker Lisa",
-        dialogue: "I work the afternoon shift today. I start at two thirty and finish at ten o'clock at night.",
-        question: "What shift does Lisa work?",
-        options: [
-          "Morning shift",
-          "Night shift",
-          "Afternoon shift",
-          "Overtime shift"
-        ],
-        correct: 2,
-        feedbackCorrect: "✅ Correct! Lisa works the afternoon shift.",
-        feedbackWrong: "❌ Listen carefully. Lisa said 'I work the afternoon shift.'"
-      },
-      {
-        sceneLabel: "💪 Scene 10 — Overtime",
-        title: "Working Extra Hours",
-        avatar: "👨‍🍳",
-        speaker: "Manager Dave",
-        dialogue: "We are very busy today. Can you work overtime? You finish at two thirty, but can you stay until four o'clock?",
-        question: "How much overtime will you work?",
-        options: [
-          "Thirty minutes",
-          "Two hours",
-          "One hour",
-          "One hour and thirty minutes"
-        ],
-        correct: 3,
-        feedbackCorrect: "✅ Correct! From 2:30 to 4:00 is one hour and thirty minutes of overtime.",
-        feedbackWrong: "❌ Count again. From 2:30 PM to 4:00 PM is one hour and thirty minutes."
-      }
-    ];
-
-    let currentQuestion = 0;
-    let score = 0;
-
-    function startGame() {
-      document.getElementById("start-screen").style.display = "none";
-      document.getElementById("game-screen").style.display = "block";
-      loadQuestion();
-    }
-
-    function loadQuestion() {
-      const data = gameData[currentQuestion];
-
-      // update top bar
-      document.getElementById("score-display").textContent = score;
-      document.getElementById("q-num").textContent = currentQuestion + 1;
-      document.getElementById("progress-fill").style.width =
-        (currentQuestion / gameData.length * 100) + "%";
-
-      // fill card
-      document.getElementById("scene-label").textContent = data.sceneLabel;
-      document.getElementById("scene-title").textContent = data.title;
-      document.getElementById("avatar").textContent = data.avatar;
-      document.getElementById("speaker-name").textContent = data.speaker;
-      document.getElementById("dialogue-text").textContent = data.dialogue;
-      document.getElementById("question-text").textContent = data.question;
-
-      // clear old state
-      document.getElementById("feedback-box").style.display = "none";
-      document.getElementById("feedback-box").className = "feedback-box";
-      document.getElementById("next-btn").style.display = "none";
-
-      // build options
-      const container = document.getElementById("options-container");
-      container.innerHTML = "";
-      const letters = ["A", "B", "C", "D"];
-      data.options.forEach((opt, i) => {
-        const btn = document.createElement("button");
-        btn.className = "option-btn";
-        btn.innerHTML = `
-          <span class="option-letter">${letters[i]}</span>
-          <span>${opt}</span>
-        `;
-        btn.onclick = () => checkAnswer(i);
-        container.appendChild(btn);
-      });
-    }
-
-    function checkAnswer(selected) {
-      const data = gameData[currentQuestion];
-      const buttons = document.querySelectorAll(".option-btn");
-
-      // disable all buttons
-      buttons.forEach(btn => btn.disabled = true);
-
-      // highlight correct and wrong
-      buttons[data.correct].classList.add("correct");
-      if (selected !== data.correct) {
-        buttons[selected].classList.add("wrong");
-      }
-
-      // feedback
-      const feedbackBox = document.getElementById("feedback-box");
-      feedbackBox.style.display = "block";
-
-      if (selected === data.correct) {
-        feedbackBox.textContent = data.feedbackCorrect;
-        feedbackBox.className = "feedback-box correct";
-        score += 10;
-        document.getElementById("score-display").textContent = score;
-      } else {
-        feedbackBox.textContent = data.feedbackWrong;
-        feedbackBox.className = "feedback-box wrong";
-      }
-
-      // show next button
-      document.getElementById("next-btn").style.display = "inline-block";
-
-      // last question label
-      if (currentQuestion === gameData.length - 1) {
-        document.getElementById("next-btn").textContent = "See My Results 🏆";
-      } else {
-        document.getElementById("next-btn").textContent = "Next ➜";
-      }
-    }
-
-    function nextQuestion() {
-      currentQuestion++;
-      if (currentQuestion < gameData.length) {
-        loadQuestion();
-      } else {
-        showFinalScreen();
-      }
-    }
-
-    function showFinalScreen() {
-      document.getElementById("game-screen").style.display = "none";
-      document.getElementById("final-screen").style.display = "block";
-
-      document.getElementById("final-score-number").textContent = score;
-
-      let trophy, stars, message, detail;
-
-      if (score === 100) {
-        trophy   = "🏆";
-        stars    = "⭐⭐⭐";
-        message  = "Perfect Score! You are the Master Butcher!";
-        detail   = "You know all your shift times, break times, and time expressions perfectly. Your manager is very impressed!";
-      } else if (score >= 80) {
-        trophy   = "🥇";
-        stars    = "⭐⭐⭐";
-        message  = "Excellent! You are always on time!";
-        detail   = "Great work! You understand shift times and time expressions very well. Keep it up!";
-      } else if (score >= 60) {
-        trophy   = "🥈";
-        stars    = "⭐⭐";
-        message  = "Good job! You are getting better!";
-        detail   = "You know most of the time vocabulary. Review 'half past', 'quarter to', and break times.";
-      } else if (score >= 40) {
-        trophy   = "🥉";
-        stars    = "⭐";
-        message  = "Keep practicing! You can do it!";
-        detail   = "Review the time expressions in Unit 10. Pay attention to o'clock, half past, and quarter to.";
-      } else {
-        trophy   = "🔪";
-        stars    = "";
-        message  = "Don't give up! Try again!";
-        detail   = "Go back and study Unit 10 time expressions. Then play again — you will improve!";
-      }
-
-      document.getElementById("trophy-icon").textContent   = trophy;
-      document.getElementById("stars-display").textContent = stars;
-      document.getElementById("result-message").textContent = message;
-      document.getElementById("result-detail").textContent  = detail;
-    }
-
-    function restartGame() {
-      currentQuestion = 0;
-      score           = 0;
-      document.getElementById("final-screen").style.display  = "none";
-      document.getElementById("game-screen").style.display   = "block";
-      loadQuestion();
-    }
-  </script>
 </body>
 </html>
