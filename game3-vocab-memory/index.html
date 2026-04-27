@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocab Memory — The Butcher Shop</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f5f0eb;
+            min-height: 100vh;
+        }
+
+        /* ── HEADER ── */
+        header {
+            background: linear-gradient(135deg, #7B1010, #C0392B);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .header-icons { font-size: 2.5em; margin-bottom: 10px; }
+        header h1 { font-size: 2em; margin-bottom: 6px; }
+        header p { opacity: 0.85; font-size: 1em; }
+        .back-link {
+            display: inline-block;
+            margin-top: 14px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+        .back-link:hover { color: white; text-decoration: underline; }
+
+        /* ── MAIN ── */
+        main {
+            max-width: 860px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* ── SECTION TITLE ── */
+        .section-title {
+            text-align: center;
+            font-size: 1em;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #888;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+        }
+        .section-title::before,
+        .section-title::after {
+            content: '';
+            flex: 1;
+            max-width: 120px;
+            height: 1px;
+            background: #ddd;
+        }
+
+        /* ── VOCAB LIST ── */
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 14px;
+            margin-bottom: 40px;
+        }
+        .vocab-card {
+            background: white;
+            border-radius: 14px;
+            padding: 16px 18px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-left: 4px solid #C0392B;
+        }
+        .vocab-emoji { font-size: 2em; }
+        .vocab-term { font-weight: 700; color: #222; font-size: 1em; }
+        .vocab-def { color: #888; font-size: 0.82em; margin-top: 3px; }
+
+        /* ── GAME CARDS ── */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .game-card {
+            background: white;
+            border-radius: 18px;
+            padding: 28px 22px;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+        }
+        .badge {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: #27ae60;
+            color: white;
+            font-size: 0.72em;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+        .badge.soon {
+            background: #f39c12;
+        }
+        .game-icon { font-size: 3em; margin-bottom: 12px; }
+        .game-tag {
+            display: inline-block;
+            background: #f5e6e6;
+            color: #C0392B;
+            font-size: 0.72em;
+            font-weight: 700;
+            padding: 3px 12px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        .game-card h3 {
+            font-size: 1.15em;
+            color: #222;
+            margin-bottom: 8px;
+        }
+        .game-card p {
+            color: #888;
+            font-size: 0.85em;
+            line-height: 1.5;
+            margin-bottom: 18px;
+        }
+        .play-btn {
+            display: inline-block;
+            background: #C0392B;
+            color: white;
+            text-decoration: none;
+            padding: 11px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.95em;
+            transition: background 0.2s;
+        }
+        .play-btn:hover { background: #922b21; }
+        .play-btn.disabled {
+            background: #ddd;
+            color: #aaa;
+            pointer-events: none;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #aaa;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+    <div class="header-icons">🧠🥩</div>
+    <h1>Vocab Memory</h1>
+    <p>Learn Australian butcher vocabulary with flashcards & memory games</p>
+    <a class="back-link" href="../index.html">← Back to The Butcher Shop</a>
+</header>
+
+<main>
+
+    <!-- Vocab List -->
+    <div class="section-title">📋 VOCABULARY IN THIS GAME</div>
+    <div class="vocab-grid">
+        <div class="vocab-card">
+            <div class="vocab-emoji">🌭</div>
+            <div>
+                <div class="vocab-term">Snags</div>
+                <div class="vocab-def">Sausages (Australian slang)</div>
+            </div>
+        </div>
+        <div class="vocab-card">
+            <div class="vocab-emoji">🍖</div>
+            <div>
+                <div class="vocab-term">Mince</div>
+                <div class="vocab-def">Ground / minced meat</div>
+            </div>
+        </div>
+        <div class="vocab-card">
+            <div class="vocab-emoji">🥓</div>
+            <div>
+                <div class="vocab-term">Rashers</div>
+                <div class="vocab-def">Slices of bacon</div>
+            </div>
+        </div>
+        <div class="vocab-card">
+            <div class="vocab-emoji">🥩</div>
+            <div>
+                <div class="vocab-term">Scotch Fillet</div>
+                <div class="vocab-def">Ribeye steak — premium beef cut</div>
+            </div>
+        </div>
+        <div class="vocab-card">
+            <div class="vocab-emoji">🍗</div>
+            <div>
+                <div class="vocab-term">Chops</div>
+                <div class="vocab-def">Meat cut from the rib or loin</div>
+            </div>
+        </div>
+        <div class="vocab-card">
+            <div class="vocab-emoji">🐟</div>
+            <div>
+                <div class="vocab-term">Fillet</div>
+                <div class="vocab-def">Boneless cut of meat or fish</div>
+            </div>
+        </div>
+        <div class="vocab-card">
+            <div class="vocab-emoji">🍳</div>
+            <div>
+                <div class="vocab-term">Brekkie</div>
+                <div class="vocab-def">Breakfast (Australian slang)</div>
+            </div>
+        </div>
+        <div class="vocab-card">
+            <div class="vocab-emoji">🍞</div>
+            <div>
+                <div class="vocab-term">Sausage Sizzle</div>
+                <div class="vocab-def">BBQ fundraiser at Bunnings</div>
+            </div>
+        </div>
+        <div class="vocab-card">
+            <div class="vocab-emoji">🔥</div>
+            <div>
+                <div class="vocab-term">Barbie</div>
+                <div class="vocab-def">BBQ / barbecue (Australian slang)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Games -->
+    <div class="section-title">🎮 CHOOSE A GAME</div>
+    <div class="games-grid">
+
+        <!-- Flashcards -->
+        <div class="game-card">
+            <span class="badge">NEW</span>
+            <div class="game-icon">🃏</div>
+            <div class="game-tag">FLASHCARD</div>
+            <h3>Meat Vocab Flashcards</h3>
+            <p>Flip cards to learn 9 Australian butcher words with real food photos!</p>
+            <a class="play-btn" href="flashcards.html">▶ Play Now</a>
+        </div>
+
+        <!-- Memory Match - Coming Soon -->
+        <div class="game-card">
+            <span class="badge soon">Soon</span>
+            <div class="game-icon">🧩</div>
+            <div class="game-tag">MEMORY</div>
+            <h3>Vocab Memory Match</h3>
+            <p>Match the meat image to the correct Australian butcher term!</p>
+            <a class="play-btn disabled" href="#">▶ Coming Soon</a>
+        </div>
+
+        <!-- Quiz - Coming Soon -->
+        <div class="game-card">
+            <span class="badge soon">Soon</span>
+            <div class="game-icon">❓</div>
+            <div class="game-tag">QUIZ</div>
+            <h3>Butcher Vocab Quiz</h3>
+            <p>Test yourself! Choose the correct definition for each meat term.</p>
+            <a class="play-btn disabled" href="#">▶ Coming Soon</a>
+        </div>
+
+    </div>
+
+</main>
+
+<footer>
+    🥩 The Butcher Shop · TeeTalkEnglish · Learn English for your butcher career in Australia
+</footer>
+
+</body>
+</html>
