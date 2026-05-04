@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Butcher Tools Match – The Butcher Shop</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <a href="../index.html" class="back-btn">← Back to The Butcher Shop</a>
+    <h1>🔪 Butcher Tools Match</h1>
+    <p>Match each butcher tool or safety gear to its correct English name!</p>
+  </header>
+
+  <main>
+    <div class="hud">
+      <div class="hud-box">⏱ Time: <span id="timer">0</span>s</div>
+      <div class="hud-box">✅ Matches: <span id="score">0</span> / <span id="total">0</span></div>
+      <div class="hud-box">❌ Attempts: <span id="attempts">0</span></div>
+    </div>
+
+    <div id="game-board" class="game-board"></div>
+
+    <div id="result-banner" class="result-banner hidden">
+      🎉 Well done! You matched all the tools!<br/>
+      <span id="final-stats"></span><br/>
+      <button onclick="restartGame()">🔄 Play Again</button>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
