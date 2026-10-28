@@ -15,13 +15,13 @@ body {
 }
 
 a {
-  color: #8b1a1a;
+  color: #7d2424;
 }
 
 a:focus-visible,
 button:focus-visible,
-input:focus-visible {
-  outline: 3px solid #e67e22;
+summary:focus-visible {
+  outline: 3px solid #11686d;
   outline-offset: 3px;
 }
 
@@ -76,38 +76,12 @@ main {
   padding: 26px 20px 48px;
 }
 
-.lesson-note,
-.information-box {
+.lesson-note {
   padding: 16px 18px;
-  border-left: 4px solid #c0392b;
+  margin-bottom: 22px;
+  border-left: 4px solid #24b7bd;
   border-radius: 10px;
   background: #fff;
-}
-
-.lesson-note {
-  margin-bottom: 22px;
-}
-
-.contents {
-  padding: 20px 22px;
-  margin-bottom: 28px;
-  border: 1px solid #eaded2;
-  border-radius: 14px;
-  background: #fff;
-}
-
-.contents h2 {
-  margin: 0 0 8px;
-  color: #8b1a1a;
-  font-size: 1.15rem;
-}
-
-.contents ol {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 4px 24px;
-  margin: 0;
-  padding-left: 22px;
 }
 
 .lesson-section {
@@ -134,21 +108,142 @@ main {
   line-height: 1.3;
 }
 
+.lesson-section h3 {
+  margin: 24px 0 8px;
+  color: #702020;
+  font-size: 1.12rem;
+  line-height: 1.4;
+}
+
 .lesson-section > p:not(.section-label) {
   margin-top: 0;
 }
 
-.question-list {
-  padding-left: 24px;
+.contents {
+  padding: 20px 22px;
+  margin-bottom: 28px;
+  border: 1px solid #eaded2;
+  border-radius: 14px;
+  background: #fff;
 }
 
-.question-list li {
-  margin: 8px 0;
+.contents h2 {
+  margin: 0 0 8px;
+  color: #8b1a1a;
+  font-size: 1.15rem;
+}
+
+.day-navigation ol {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 24px;
+  margin: 0;
+  padding-left: 22px;
+}
+
+.day-navigation a {
+  font-weight: 700;
+}
+
+.video-frame {
+  overflow: hidden;
+  width: 100%;
+  margin: 18px 0 10px;
+  border-radius: 12px;
+  background: #171717;
+  aspect-ratio: 16 / 9;
+}
+
+.video-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.player-status,
+.caption-note,
+.day-instruction {
+  color: #554b46;
+  font-size: 0.94rem;
+}
+
+.caption-note {
+  padding: 11px 13px;
+  border-left: 3px solid #24b7bd;
+  background: #f0fbfb;
+}
+
+.segment-time {
+  padding: 9px 13px;
+  border-radius: 8px;
+  background: #f0fbfb;
+}
+
+.segment-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  margin: 14px 0 18px;
+}
+
+.primary-button,
+.reveal-button {
+  min-height: 42px;
+  padding: 9px 16px;
+  border: 0;
+  border-radius: 22px;
+  color: #fff;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.primary-button {
+  background: #11686d;
+}
+
+.primary-button:hover {
+  background: #0b5054;
+}
+
+.reveal-button {
+  background: #c0392b;
+}
+
+.reveal-button:hover {
+  background: #8b1a1a;
+}
+
+.text-button {
+  display: inline-block;
+  padding: 7px 0;
+  font-weight: 700;
+}
+
+.vocabulary {
+  margin: 16px 0 20px;
+  border: 1px solid #b5e5e6;
+  border-radius: 10px;
+  background: #fbffff;
+}
+
+.vocabulary summary {
+  padding: 13px 16px;
+  color: #11686d;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.vocabulary[open] summary {
+  border-bottom: 1px solid #d5eeee;
 }
 
 .table-wrap {
   overflow-x: auto;
-  margin-top: 16px;
+  margin: 12px;
   border: 1px solid #eaded2;
   border-radius: 10px;
 }
@@ -161,18 +256,19 @@ table {
 
 th,
 td {
+  min-width: 140px;
   padding: 11px 13px;
   border-bottom: 1px solid #eee5dc;
   vertical-align: top;
 }
 
 thead th {
-  background: #f5e9e1;
-  color: #702020;
+  background: #e5f7f7;
+  color: #174f52;
 }
 
 tbody th {
-  min-width: 175px;
+  min-width: 220px;
   font-weight: 700;
 }
 
@@ -181,10 +277,46 @@ tbody tr:last-child td {
   border-bottom: 0;
 }
 
+.source-label {
+  display: inline-block;
+  padding: 1px 6px;
+  margin: 3px 0 0 4px;
+  border-radius: 10px;
+  background: #e5f7f7;
+  color: #174f52;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.day-vocabulary {
+  padding: 10px 13px;
+  border-left: 3px solid #24b7bd;
+  background: #f0fbfb;
+}
+
+.day-vocabulary a {
+  font-weight: 700;
+}
+
+.useful-language {
+  padding: 12px 16px;
+  border: 1px solid #b5e5e6;
+  border-radius: 10px;
+  background: #f6fdfd;
+}
+
+.useful-language p {
+  margin: 7px 0;
+}
+
+.useful-language p:last-child {
+  margin-bottom: 0;
+}
+
 .practice-list {
   display: grid;
   gap: 14px;
-  margin-top: 18px;
+  margin-top: 16px;
 }
 
 .practice-card {
@@ -194,7 +326,7 @@ tbody tr:last-child td {
   background: #fffdfa;
 }
 
-.practice-card h3 {
+.practice-card h4 {
   margin: 0 0 10px;
   color: #342b28;
   font-size: 1.05rem;
@@ -203,23 +335,6 @@ tbody tr:last-child td {
 
 .practice-card > p {
   margin: 8px 0;
-}
-
-.reveal-button {
-  min-height: 42px;
-  padding: 9px 16px;
-  border: 0;
-  border-radius: 22px;
-  background: #c0392b;
-  color: #fff;
-  font: inherit;
-  font-size: 0.9rem;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.reveal-button:hover {
-  background: #8b1a1a;
 }
 
 .answer {
@@ -231,65 +346,19 @@ tbody tr:last-child td {
 }
 
 .answer p {
-  margin: 0;
+  margin: 8px 0;
 }
 
-.follow-up,
-.vocab-line {
-  color: #554b46;
-  font-size: 0.94rem;
-}
-
-.information-box {
-  margin: 16px 0;
-  background: #fff8f1;
-}
-
-.information-box p {
-  margin: 0 0 10px;
-}
-
-.information-box p:last-child {
+.answer p:last-child {
   margin-bottom: 0;
 }
 
-.checklist {
-  padding: 18px 20px;
-  margin-top: 20px;
-  border-radius: 12px;
-  background: #f5eee8;
-}
-
-.checklist h3 {
-  margin: 0 0 8px;
-  color: #702020;
-}
-
-.checklist ul {
-  padding-left: 0;
-  margin: 0;
-  list-style: none;
-}
-
-.checklist li {
-  margin: 9px 0;
-}
-
-.checklist label {
-  cursor: pointer;
-}
-
-.checklist input {
-  margin-right: 8px;
-  accent-color: #a83232;
-}
-
-.resources-section ul {
-  padding-left: 22px;
-}
-
-.resources-section li {
-  margin: 9px 0;
+.final-practice {
+  padding: 14px 16px;
+  margin-top: 22px;
+  border-left: 4px solid #24b7bd;
+  border-radius: 8px;
+  background: #f0fbfb;
 }
 
 footer {
@@ -316,7 +385,7 @@ footer a {
     padding: 18px 14px 34px;
   }
 
-  .contents ol {
+  .day-navigation ol {
     grid-template-columns: 1fr;
   }
 
@@ -325,12 +394,17 @@ footer a {
     margin: 16px 0;
   }
 
+  .segment-actions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   .practice-card {
     padding: 15px 14px;
   }
 
   table {
-    min-width: 680px;
+    min-width: 610px;
   }
 }
 
