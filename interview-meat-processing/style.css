@@ -1,0 +1,341 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #faf6f1;
+  color: #2c2c2c;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+}
+
+a {
+  color: #8b1a1a;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid #e67e22;
+  outline-offset: 3px;
+}
+
+.lesson-header {
+  padding: 32px 20px 28px;
+  background: linear-gradient(135deg, #8b1a1a, #c0392b, #a83232);
+  color: #fff;
+  text-align: center;
+}
+
+.header-icon {
+  margin-bottom: 8px;
+  font-size: 2.5rem;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  opacity: 0.9;
+}
+
+.lesson-header h1 {
+  max-width: 920px;
+  margin: 0 auto 10px;
+  font-size: clamp(1.7rem, 4vw, 2.35rem);
+  line-height: 1.2;
+}
+
+.intro {
+  max-width: 680px;
+  margin: 0 auto;
+  opacity: 0.92;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 16px;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+}
+
+.back-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+main {
+  width: min(940px, 100%);
+  margin: 0 auto;
+  padding: 26px 20px 48px;
+}
+
+.lesson-note,
+.information-box {
+  padding: 16px 18px;
+  border-left: 4px solid #c0392b;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.lesson-note {
+  margin-bottom: 22px;
+}
+
+.contents {
+  padding: 20px 22px;
+  margin-bottom: 28px;
+  border: 1px solid #eaded2;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.contents h2 {
+  margin: 0 0 8px;
+  color: #8b1a1a;
+  font-size: 1.15rem;
+}
+
+.contents ol {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 24px;
+  margin: 0;
+  padding-left: 22px;
+}
+
+.lesson-section {
+  padding: 26px;
+  margin: 24px 0;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  scroll-margin-top: 16px;
+}
+
+.section-label {
+  margin: 0 0 4px;
+  color: #a83232;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1.7px;
+}
+
+.lesson-section > h2 {
+  margin: 0 0 8px;
+  color: #8b1a1a;
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  line-height: 1.3;
+}
+
+.lesson-section > p:not(.section-label) {
+  margin-top: 0;
+}
+
+.question-list {
+  padding-left: 24px;
+}
+
+.question-list li {
+  margin: 8px 0;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  margin-top: 16px;
+  border: 1px solid #eaded2;
+  border-radius: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+th,
+td {
+  padding: 11px 13px;
+  border-bottom: 1px solid #eee5dc;
+  vertical-align: top;
+}
+
+thead th {
+  background: #f5e9e1;
+  color: #702020;
+}
+
+tbody th {
+  min-width: 175px;
+  font-weight: 700;
+}
+
+tbody tr:last-child th,
+tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.practice-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.practice-card {
+  padding: 17px 18px;
+  border: 1px solid #eee3d9;
+  border-radius: 12px;
+  background: #fffdfa;
+}
+
+.practice-card h3 {
+  margin: 0 0 10px;
+  color: #342b28;
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+
+.practice-card > p {
+  margin: 8px 0;
+}
+
+.reveal-button {
+  min-height: 42px;
+  padding: 9px 16px;
+  border: 0;
+  border-radius: 22px;
+  background: #c0392b;
+  color: #fff;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.reveal-button:hover {
+  background: #8b1a1a;
+}
+
+.answer {
+  padding: 12px 15px;
+  margin-top: 12px;
+  border-left: 3px solid #c0392b;
+  border-radius: 0 8px 8px 0;
+  background: #f8eee8;
+}
+
+.answer p {
+  margin: 0;
+}
+
+.follow-up,
+.vocab-line {
+  color: #554b46;
+  font-size: 0.94rem;
+}
+
+.information-box {
+  margin: 16px 0;
+  background: #fff8f1;
+}
+
+.information-box p {
+  margin: 0 0 10px;
+}
+
+.information-box p:last-child {
+  margin-bottom: 0;
+}
+
+.checklist {
+  padding: 18px 20px;
+  margin-top: 20px;
+  border-radius: 12px;
+  background: #f5eee8;
+}
+
+.checklist h3 {
+  margin: 0 0 8px;
+  color: #702020;
+}
+
+.checklist ul {
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.checklist li {
+  margin: 9px 0;
+}
+
+.checklist label {
+  cursor: pointer;
+}
+
+.checklist input {
+  margin-right: 8px;
+  accent-color: #a83232;
+}
+
+.resources-section ul {
+  padding-left: 22px;
+}
+
+.resources-section li {
+  margin: 9px 0;
+}
+
+footer {
+  padding: 24px 20px;
+  background: #332a26;
+  color: #eee;
+  text-align: center;
+}
+
+footer p {
+  margin: 0 0 4px;
+}
+
+footer a {
+  color: #f0c7b6;
+}
+
+@media (max-width: 640px) {
+  .lesson-header {
+    padding: 26px 16px 24px;
+  }
+
+  main {
+    padding: 18px 14px 34px;
+  }
+
+  .contents ol {
+    grid-template-columns: 1fr;
+  }
+
+  .lesson-section {
+    padding: 20px 16px;
+    margin: 16px 0;
+  }
+
+  .practice-card {
+    padding: 15px 14px;
+  }
+
+  table {
+    min-width: 680px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
